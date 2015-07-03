@@ -1,0 +1,9 @@
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Microsoft.Azure.Documents.Client.dll
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Newtonsoft.Json.dll
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Microsoft.Azure.Documents.Client.xml
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Newtonsoft.Json.xml
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\obj\Debug\Azrdocdb.csprojResolveAssemblyReference.cache
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Azrdocdb.dll
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Azrdocdb.pdb
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\obj\Debug\Azrdocdb.dll
+c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\obj\Debug\Azrdocdb.pdb
