@@ -1,9 +1,9 @@
 # Azure-DocumentDB-Powershell-Cmdlets
 Azure Document Database Management Powershell Cmdlets
 
-The Project is a modest attempt to create Powershell Cmdlets for Administration & Management of Azure DocumentDB Database using Powershell. I have started with a small set of cmdlets but exposing it to the community for further addition to the list
+This Project is a modest attempt to create Powershell Cmdlets for Administration & Management of Azure DocumentDB Database using Powershell. I have started with a small set of cmdlets but exposing it to the community for further addition to the list.
 
-Powershell Cmdlet Defined & its Usage
+Powershell Cmdlet Definition & its Usage
 
 ## Creating a New Database
 
