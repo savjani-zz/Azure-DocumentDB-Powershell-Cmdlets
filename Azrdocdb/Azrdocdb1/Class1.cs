@@ -86,6 +86,11 @@ namespace AZRDOCDBPS
     /// $ctx = New-Context -Uri <string> -Key <string>
     /// $database = Add-Database -Context $ctx -Name '{name}'
     /// $collection = Add-DocumentCollection -Context $ctx -DatabaseLink $database.Selflink -Name '{name}'
+    /// /// PS Cmdlet to add a new Collection to the DocumentDB Database with Indexing Policy Settings
+    /// Usage: 
+    /// $ctx = New-Context -Uri <string> -Key <string>
+    /// $database = Add-Database -Context $ctx -Name '{name}'
+    /// $collection = Add-DocumentCollection -Context $ctx -DatabaseLink $database.Selflink -Name '{name}' -AutoIndexing true -IndexingMode 'Lazy'
     /// </summary>
 
     [Cmdlet(VerbsCommon.Add, "DocumentCollection")]
@@ -105,17 +110,32 @@ namespace AZRDOCDBPS
             HelpMessage = "Collection Name")]
         public string Name { get; set; }
 
+        [Parameter(Position = 3,
+           Mandatory = false,
+           ValueFromPipeline = true,
+           ValueFromPipelineByPropertyName = true,
+           HelpMessage = "Turn On/Off Automatic Indexing ")]
+        public bool AutoIndexing = true;
+
+        [Parameter(Position = 4,
+           Mandatory = false,
+           ValueFromPipeline = true,
+           ValueFromPipelineByPropertyName = true,
+           HelpMessage = "Set Indexing Mode to Consistent or Lazy")]
+        [ValidateSet("Consistent","Lazy")]
+        public IndexingMode IndexingMode = IndexingMode.Consistent;
+        
         protected override void ProcessRecord()
         {
             var uri = base.Context.Properties["Uri"].Value.ToString();
             var key = base.Context.Properties["Key"].Value.ToString();
 
             var client = new DocumentClient(new Uri(uri), key);
+            var collection = new DocumentCollection {Id = Name};
+            collection.IndexingPolicy.Automatic = AutoIndexing;
+            collection.IndexingPolicy.IndexingMode = IndexingMode;
 
-            var task = client.CreateDocumentCollectionAsync(DatabaseLink, new DocumentCollection()
-            {
-                Id = Name
-            });
+            var task = client.CreateDocumentCollectionAsync(DatabaseLink, collection );
 
             task.Wait();
 

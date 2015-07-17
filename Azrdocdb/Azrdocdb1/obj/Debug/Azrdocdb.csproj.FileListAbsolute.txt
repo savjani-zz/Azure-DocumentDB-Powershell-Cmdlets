@@ -7,3 +7,12 @@ c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\De
 c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\bin\Debug\Azrdocdb.pdb
 c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\obj\Debug\Azrdocdb.dll
 c:\users\pariks\documents\visual studio 2013\projects\Azrdocdb1\Azrdocdb1\obj\Debug\Azrdocdb.pdb
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\obj\Debug\Azrdocdb.csprojResolveAssemblyReference.cache
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\obj\Debug\Azrdocdb.dll
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\obj\Debug\Azrdocdb.pdb
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Azrdocdb.dll
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Azrdocdb.pdb
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Microsoft.Azure.Documents.Client.dll
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Microsoft.Azure.Documents.Client.xml
+C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Newtonsoft.Json.xml

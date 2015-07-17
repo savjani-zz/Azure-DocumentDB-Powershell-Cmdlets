@@ -20,6 +20,22 @@ $db = Add-Database -Context $ctx -Name "DocDBPS2"
 $coll = Add-DocumentCollection -Context $ctx -DatabaseLink $db.SelfLink -Name "DocCollPS"
 Get-database -Context $ctx -SelfLink $db.SelfLink | ft
 
+## Creating a New Database & New Document Collection & Setting Automatic Indexing Policy
+
+Import-Module 'C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Azrdocdb.dll'
+$ctx = New-Context -Uri <uri> -Key <key>
+$db = Add-Database -Context $ctx -Name 'DocDB'
+$coll = Add-DocumentCollection -Context $ctx -DatabaseLink $db.SelfLink -Name 'DocCollPS' -AutoIndexing $true 
+Get-database -Context $ctx -SelfLink $db.SelfLink | ft
+
+## Creating a New Database & New Document Collection & Setting Automatic Indexing Policy & IndexingMode 
+
+Import-Module 'C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Azrdocdb.dll'
+$ctx = New-Context -Uri <uri> -Key <key>
+$db = Add-Database -Context $ctx -Name 'DocDB'
+$coll = Add-DocumentCollection -Context $ctx -DatabaseLink $db.SelfLink -Name 'DocCollPS' -AutoIndexing $true -IndexingMode 'Lazy'
+Get-database -Context $ctx -SelfLink $db.SelfLink | ft
+
 
 ## List all the Databases in the Given Azure DocumentDB Database Account
 
