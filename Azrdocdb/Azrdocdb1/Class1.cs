@@ -391,7 +391,7 @@ namespace AZRDOCDBPS
             }
         }
 
-        protected override async void ProcessRecord()
+        protected override void ProcessRecord()
         {
             var uri = base.Context.Properties["Uri"].Value.ToString();
             var key = base.Context.Properties["Key"].Value.ToString();
@@ -409,25 +409,15 @@ namespace AZRDOCDBPS
                 {
 
                     string storedProcBody;
-
-                    var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(documentName + ".js");
-
-                    using (var sr = new StreamReader(stream))
+                    using (var sr = new StreamReader(file.OpenRead()))
                     {
                         storedProcBody = sr.ReadToEnd();
                     }
 
                     var storedProcedure = new StoredProcedure { Id = documentName, Body = storedProcBody };
-                    
-                    ResourceResponse<StoredProcedure> documentResult = client.UpsertStoredProcedureAsync(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId), storedProcedure);
-                    //var result = await repositoryClient.Client.UpsertStoredProcedureAsync(UriFactory.CreateDocumentCollectionUri(databaseId, collectionId), storedProcedure);
 
-                    //using (var jsonData = file.OpenRead())
-                    //{
-                    //    storedProc = StoredProcedure.LoadFrom<StoredProcedure>(jsonData);
-                    //}
-                    //Logger($"Creating stored procedure {file.Name}");
-                    //ResourceResponse<StoredProcedure> documentResult = client.CreateStoredProcedureAsync(CollectionPath, storedProc).Result;
+                    ResourceResponse<StoredProcedure> documentResult = client.CreateStoredProcedureAsync(CollectionPath, storedProcedure).Result;
+
                 }
                 else
                 {
