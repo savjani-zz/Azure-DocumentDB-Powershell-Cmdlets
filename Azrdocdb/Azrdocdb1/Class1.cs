@@ -54,6 +54,16 @@ namespace AZRDOCDBPS
             ValueFromPipelineByPropertyName = true,
             HelpMessage = "DocumentDB Connectionstring")]
         public PSObject Context { get; set; }
+
+        public void Logger(String text)
+        {
+            DateTime localDate = DateTime.Now;
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter("C:\\docDBlog.txt", true))
+            {
+                file.WriteLine(localDate + ": " + text);
+                file.Close();
+            }
+        }
     }
     /// <summary>
     /// PS Cmdlet to add a new database in Azure DocumentDB
@@ -301,16 +311,6 @@ namespace AZRDOCDBPS
             HelpMessage = "Document Folder")]
         public DirectoryInfo Folder { get; set; }
 
-        public void Logger(String text)
-        {
-            DateTime localDate = DateTime.Now;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter("C:\\docDBlog.txt", true))
-            {
-                file.WriteLine(localDate + ": " + text);
-                file.Close();
-            }
-        }
-
         protected override void ProcessRecord()
         {
             var uri = base.Context.Properties["Uri"].Value.ToString();
@@ -381,15 +381,80 @@ namespace AZRDOCDBPS
             HelpMessage = "Document Folder")]
         public DirectoryInfo Folder { get; set; }
 
-        public void Logger(String text)
+        protected override void ProcessRecord()
         {
-            DateTime localDate = DateTime.Now;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter("C:\\docDBlog.txt", true))
+            var uri = base.Context.Properties["Uri"].Value.ToString();
+            var key = base.Context.Properties["Key"].Value.ToString();
+
+            var client = new DocumentClient(new Uri(uri), key);
+
+            Logger($"Scanning {Folder.Name} for stored procedures");
+            foreach (FileInfo file in Folder.EnumerateFiles("*.js"))
             {
-                file.WriteLine(localDate + ": " + text);
-                file.Close();
+                var documentName = Path.GetFileNameWithoutExtension(file.Name);
+                StoredProcedure storedProc = client.CreateStoredProcedureQuery(CollectionPath).Where(p => p.Id == documentName).AsEnumerable().SingleOrDefault();
+
+
+                if (storedProc == null)
+                {
+
+                    string storedProcBody;
+                    using (var sr = new StreamReader(file.OpenRead()))
+                    {
+                        storedProcBody = sr.ReadToEnd();
+                    }
+
+                    var storedProcedure = new StoredProcedure { Id = documentName, Body = storedProcBody };
+
+                    ResourceResponse<StoredProcedure> documentResult = client.CreateStoredProcedureAsync(CollectionPath, storedProcedure).Result;
+
+                }
+                else
+                {
+                    if (storedProc.Timestamp <= file.LastWriteTimeUtc)
+                    {
+                        Logger($"Replacing stored procedure {file.Name}");
+                        using (var jsonData = file.OpenText())
+                        {
+                            using (var jr = new JsonTextReader(jsonData))
+                            {
+                                storedProc.LoadFrom(jr);
+                            }
+                        }
+                        ResourceResponse<StoredProcedure> replaceResult = client.ReplaceStoredProcedureAsync(storedProc).Result;
+                    }
+                    else
+                    {
+                        Logger($"    Not replaced, stored procedure {storedProc.Id} is newer.");
+                    }
+                }
             }
         }
+    }
+
+    [Cmdlet(VerbsCommon.Set, "MarketData")]
+    public class MarketData : DocDBCmdlet
+    {
+        [Parameter(Position = 1,
+            Mandatory = true,
+            ValueFromPipeline = true,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "Database Link")]
+        public string DatabaseLink { get; set; }
+
+        [Parameter(Position = 2,
+            Mandatory = true,
+            ValueFromPipeline = true,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "Collection Path")]
+        public string CollectionPath { get; set; }
+
+        [Parameter(Position = 3,
+            Mandatory = true,
+            ValueFromPipeline = true,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = "Document Folder")]
+        public DirectoryInfo Folder { get; set; }
 
         protected override void ProcessRecord()
         {
