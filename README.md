@@ -70,4 +70,27 @@ $ctx = New-Context -Uri <uri> -Key <key>
 Set-DatabaseAccountConsistencyLevel -Context $ctx -DefaultConsistencyLevel Eventual
 Get-DatabaseAccountConsistencyLevel -Context $ctx
 
+## Add Document
+
+Import-Module "C:\Program Files\WindowsPowerShell\Modules\Azrdocdb\Azrdocdb.dll"
+$ctx = New-Context -Uri <uri> -Key <key>
+$SelfLink = Get-databases -Context $ctx | Where-Object {$_.Id -eq "<dbName>"}
+#To create new collection, use next 2 lines. For existing collection, use only 2nd line
+#$coll = Add-DocumentCollection -Context $ctx -DatabaseLink $SelfLink.SelfLink -Name "<collectionName>"
+$collName = "dbs/<dbName>/colls/<collectionName>/"
+#Adds *.json from a folder. In this case, C:\JsonDocs
+$doc = Add-DocDbDocument -DatabaseLink $SelfLink.SelfLink -Context $ctx -CollectionPath $collName -Folder "C:\JsonDocs"
+
+## Add Stored Procedure
+
+Import-Module "C:\Program Files\WindowsPowerShell\Modules\Azrdocdb\Azrdocdb.dll"
+$ctx = New-Context -Uri <uri> -Key <key>
+#For existing database. For new database, use Add-Database
+$SelfLink = Get-databases -Context $ctx | Where-Object {$_.Id -eq "<dbName>"}
+#To create new collection, use next 2 lines. For existing collection, use only 2nd line
+#$coll = Add-DocumentCollection -Context $ctx -DatabaseLink $SelfLink.SelfLink -Name "<collectionName>"
+$collName = "dbs/<dbName>/colls/<collectionName>/"
+#Adds *.js from a folder. In this case, C:\JsonDocs
+$doc = Add-StoredProc -DatabaseLink $SelfLink.SelfLink -Context $ctx -CollectionPath $collName -Folder "C:\JsonDocs"
+
 
