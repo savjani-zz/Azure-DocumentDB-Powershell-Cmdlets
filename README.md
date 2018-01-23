@@ -6,72 +6,72 @@ This Project is a modest attempt to create Powershell Cmdlets for Administration
 Powershell Cmdlet Definition & its Usage
 
 ## Creating a New Database
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 $db = Add-Database -Context $ctx -Name "DocDBPS"
 Get-database -Context $ctx -SelfLink $db.SelfLink | ft
-
+```
 ## Creating a New Database & New Document Collection
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 $db = Add-Database -Context $ctx -Name "DocDBPS2"
 $coll = Add-DocumentCollection -Context $ctx -DatabaseLink $db.SelfLink -Name "DocCollPS"
 Get-database -Context $ctx -SelfLink $db.SelfLink | ft
-
+```
 ## Creating a New Database & New Document Collection & Setting Automatic Indexing Policy
-
+```bash
 Import-Module 'C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Azrdocdb.dll'
 $ctx = New-Context -Uri <uri> -Key <key>
 $db = Add-Database -Context $ctx -Name 'DocDB'
 $coll = Add-DocumentCollection -Context $ctx -DatabaseLink $db.SelfLink -Name 'DocCollPS' -AutoIndexing $true 
 Get-database -Context $ctx -SelfLink $db.SelfLink | ft
-
+```
 ## Creating a New Database & New Document Collection & Setting Automatic Indexing Policy & IndexingMode 
-
+```bash
 Import-Module 'C:\Users\pariks\Documents\GitHub\Azure-DocumentDB-Powershell-Cmdlets\Azrdocdb\Azrdocdb1\bin\Debug\Azrdocdb.dll'
 $ctx = New-Context -Uri <uri> -Key <key>
 $db = Add-Database -Context $ctx -Name 'DocDB'
 $coll = Add-DocumentCollection -Context $ctx -DatabaseLink $db.SelfLink -Name 'DocCollPS' -AutoIndexing $true -IndexingMode 'Lazy'
 Get-database -Context $ctx -SelfLink $db.SelfLink | ft
-
+```
 
 ## List all the Databases in the Given Azure DocumentDB Database Account
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 Get-databases -Context $ctx | ft
-
+```
 ## List Database Properties for a given Database
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 $db = Get-databases -Context $ctx | Where-Object {$_.Id -eq "DocDBPS"}
 Get-database -Context $ctx -SelfLink $db.SelfLink | ft
-
+```
 ## Drop Database 
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 $db = Get-databases -Context $ctx | Where-Object {$_.Id -eq "DocDBPS"}
 remove-database -Context $ctx -SelfLink $db.SelfLink 
-
+```
 ## Get Database Account Consistency Level
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 Get-DatabaseAccountConsistencyLevel -Context $ctx
-
+```
 ## Set Database Account Consistency Level
-
+```bash
 Import-Module C:\Users\pariks\Documents\WindowsPowerShell\Modules\DocDB\Azrdocdb.dll
 $ctx = New-Context -Uri <uri> -Key <key>
 Set-DatabaseAccountConsistencyLevel -Context $ctx -DefaultConsistencyLevel Eventual
 Get-DatabaseAccountConsistencyLevel -Context $ctx
-
+```
 ## Add Document
-
+```bash
 Import-Module "C:\Program Files\WindowsPowerShell\Modules\Azrdocdb\Azrdocdb.dll"
 $ctx = New-Context -Uri <uri> -Key <key>
 $SelfLink = Get-databases -Context $ctx | Where-Object {$_.Id -eq "<dbName>"}
@@ -80,9 +80,9 @@ $SelfLink = Get-databases -Context $ctx | Where-Object {$_.Id -eq "<dbName>"}
 $collName = "dbs/<dbName>/colls/<collectionName>/"
 #Adds *.json from a folder. In this case, C:\JsonDocs
 $doc = Add-DocDbDocument -DatabaseLink $SelfLink.SelfLink -Context $ctx -CollectionPath $collName -Folder "C:\JsonDocs"
-
+```
 ## Add Stored Procedure
-
+```bash
 Import-Module "C:\Program Files\WindowsPowerShell\Modules\Azrdocdb\Azrdocdb.dll"
 $ctx = New-Context -Uri <uri> -Key <key>
 #For existing database. For new database, use Add-Database
@@ -92,5 +92,5 @@ $SelfLink = Get-databases -Context $ctx | Where-Object {$_.Id -eq "<dbName>"}
 $collName = "dbs/<dbName>/colls/<collectionName>/"
 #Adds *.js from a folder. In this case, C:\JsonDocs
 $doc = Add-StoredProc -DatabaseLink $SelfLink.SelfLink -Context $ctx -CollectionPath $collName -Folder "C:\JsonDocs"
-
+```
 
